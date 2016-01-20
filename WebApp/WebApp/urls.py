@@ -20,4 +20,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/', include('login.urls', namespace="auth")),
+    url(r'^tracker/', include('tracker.urls', namespace="tracker")),
 ]

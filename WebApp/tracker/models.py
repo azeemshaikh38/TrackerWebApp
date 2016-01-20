@@ -4,18 +4,11 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Activities(model.Model):
+class Activities(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=255, null=True)
     class Meta:
         db_table = "Activities"
-
-class Subfields(models.Model):
-    field = models.ForiegnKey(Fields)
-    name = models.CharField(max_length=64)
-    description = models.CharField(max_length=255, null=True)
-    class Meta:
-        db_table = "Subfields"
 
 class Fields(models.Model):
     name = models.CharField(max_length=64)
@@ -23,16 +16,23 @@ class Fields(models.Model):
     class Meta:
         db_table = "Fields"
 
+class Subfields(models.Model):
+    field = models.ForeignKey(Fields)
+    name = models.CharField(max_length=64)
+    description = models.CharField(max_length=255, null=True)
+    class Meta:
+        db_table = "Subfields"
+
 class ActivityFieldEffects(models.Model):
     activity = models.ForeignKey(Activities)
-    field = models.ForiengKey(Fields)
+    field = models.ForeignKey(Fields)
     effect = models.FloatField()
     class Meta:
         db_table = "ActivityFieldEffects"
 
 class ActivitySubfieldEffects(models.Model):
     activity = models.ForeignKey(Activities)
-    subfield = models.ForeignKey(SubFields)
+    subfield = models.ForeignKey(Subfields)
     effect = models.FloatField()
     class Meta:
         db_table = "ActivitySubfieldEffects"
