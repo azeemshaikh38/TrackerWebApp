@@ -13,15 +13,9 @@ class Activities(models.Model):
 class Fields(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=255, null=True)
+    subfieldOf = models.ForeignKey("self")
     class Meta:
         db_table = "Fields"
-
-class Subfields(models.Model):
-    field = models.ForeignKey(Fields)
-    name = models.CharField(max_length=64)
-    description = models.CharField(max_length=255, null=True)
-    class Meta:
-        db_table = "Subfields"
 
 class ActivityFieldEffects(models.Model):
     activity = models.ForeignKey(Activities)
@@ -29,13 +23,6 @@ class ActivityFieldEffects(models.Model):
     effect = models.FloatField()
     class Meta:
         db_table = "ActivityFieldEffects"
-
-class ActivitySubfieldEffects(models.Model):
-    activity = models.ForeignKey(Activities)
-    subfield = models.ForeignKey(Subfields)
-    effect = models.FloatField()
-    class Meta:
-        db_table = "ActivitySubfieldEffects"
 
 class UserActivities(models.Model):
     user = models.ForeignKey(User)
@@ -49,13 +36,6 @@ class UserFields(models.Model):
     score = models.FloatField()
     class Meta:
         db_table = "UserFields"
-
-class UserSubfields(models.Model):
-    user = models.ForeignKey(User)
-    subfield = models.ForeignKey(Subfields)
-    score = models.FloatField()
-    class Meta:
-        db_table = "UserSubfields" 
 
 #class UserActivityLogs(models.Model):
 #    date = models.DateField()
