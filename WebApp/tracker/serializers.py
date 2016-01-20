@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from tracker.models import Activities, Fields, Subfields
+from tracker.models import Activities, Fields, ActivityFieldEffects
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,9 +9,9 @@ class ActivitySerializer(serializers.ModelSerializer):
 class FieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fields
-        fields = ('name', 'description')
+        fields = ('name', 'description', 'subfieldOf')
 
-class SubfieldSerializer(serializers.ModelSerializer):
+class ActivityFieldEffectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subfields
-        fields = ('name', 'description', 'field')
+        model = ActivityFieldEffects
+        field = ('activity', 'field', 'effect')

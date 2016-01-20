@@ -1,18 +1,17 @@
 from django.shortcuts import render
 from rest_framework import generics
-from tracker.models import Activities, Fields, Subfields
-from tracker.serializers import ActivitySerializer, FieldSerializer, SubfieldSerializer
+from tracker.models import Activities, Fields, ActivityFieldEffects
+from tracker.serializers import ActivitySerializer, FieldSerializer, ActivityFieldEffectSerializer
 # Create your views here.
 
-class ActivityView(generics.ListCreateUpdateDestroyAPIView):
+class ActivityView(generics.ListCreateAPIView):
     queryset = Activities.objects.all()
     serializer_class = ActivitySerializer
 
-class FieldView(generics.ListCreateUpdateDestroyAPIView):
+class FieldView(generics.ListCreateAPIView):
     queryset = Fields.objects.all()
     serializer_class = FieldSerializer
 
-class SubfieldView(generics.ListCreateUpdateDestroyAPIView):
-    queryset = Subfields.objects.all()
-    serializer_class = SubfieldSerializer
-  
+class ActivityFieldEffectView(generics.ListCreateAPIView):
+    queryset = ActivityFieldEffects.objects.all()
+    serializer_class = ActivityFieldEffectSerializer

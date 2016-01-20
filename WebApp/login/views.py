@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from utilities.HttpResponses import HttpResponseError, HttpResponseSuccess
 
@@ -15,8 +15,9 @@ class LoginAPIView(APIView):
         user = authenticate(username=data['username'], password=data['password'])
         if user is None:
             return HttpResponseError("Invalid username/password", 404)
-        return HttpResponseSuccess("Authenticated!")
+        login(request, user)
+        context = {}
+        return redirect("home:home")
 
     def get(self, request):
-        return HttpResponse(render(request, 'login/login.html'))
-        #return HttpResponseSuccess("You will see login page here")
+        return render(request, 'login/login.html')

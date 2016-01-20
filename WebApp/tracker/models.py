@@ -13,7 +13,7 @@ class Activities(models.Model):
 class Fields(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=255, null=True)
-    subfieldOf = models.ForeignKey("self")
+    subfieldOf = models.ForeignKey("self", null=True)
     class Meta:
         db_table = "Fields"
 
